@@ -20,10 +20,15 @@ import com.stelligent.concordance.controller.FileUploadController;
 import com.stelligent.concordance.solution.Concordance;
 import com.stelligent.concordance.util.Rest;
 
+/*
+ * Ideally integration tests would include use of an embedded application server to verify
+ * that at least the endpoints are configured correctly and returning the expected results.
+ */
+
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
 @ContextConfiguration("file:src/main/webapp/WEB-INF/spring/appServlet/servlet-context.xml")
-public class HTTPEndpointTest {
+public class ControllerTest {
 	@Inject
 	private FileUploadController upload;
 	
@@ -39,7 +44,7 @@ public class HTTPEndpointTest {
 	 * Expected result: Successfully generated concordance
 	 */
 	@Test
-	public void testSingleLineDocument() { 
+	public void testSingleLineDocument() {
 	    try {
 	    	String filepath = "com/stelligent/concordance/documents/plain text english document.txt";
 	    	InputStream stream = getClass().getClassLoader().getResourceAsStream(filepath);

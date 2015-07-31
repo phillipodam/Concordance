@@ -35,6 +35,12 @@ public class MessageQueueTest {
 	 */
 	@Test
 	public void acceptableProcessingTimeViaJMS() {
+		/*
+		 * Considering the simplicity of this application, the isolated testing of the queue
+		 * independent of the controller does not add much value. In a larger application
+		 * however it would help in isolating where exactly an issue resides.
+		 */
+		
 		String filepath = "com/stelligent/concordance/documents/plain text english document.txt";
 	    InputStream is = getClass().getClassLoader().getResourceAsStream(filepath);
 		
