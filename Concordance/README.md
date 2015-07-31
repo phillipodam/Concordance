@@ -5,10 +5,10 @@ text document written in English.
 
 NB: a concordance is an alphabetical list of all word occurrences.
 
-Along with the word occurrenes the concordance includes word frequencies and the sentence numbers
+Along with the word occurrences the concordance includes word frequencies and the sentence numbers
 in which each occurrence appeared.
 
-Useful commands for this project
+Useful commands for testing and building this project
  - mvn test
   - perform the unit and integration tests for the application
  - mvn clean install
