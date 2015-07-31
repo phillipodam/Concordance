@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/mvc"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:beans="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:jms="http://www.springframework.org/schema/jms"
+    xmlns:amq="http://activemq.apache.org/schema/core"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/jms http://www.springframework.org/schema/jms/spring-jms.xsd
+        http://activemq.apache.org/schema/core http://activemq.apache.org/schema/core/activemq-core.xsd">
+
+	<!-- DispatcherServlet Context: defines this servlet's request-processing infrastructure -->
+	
+	<context:property-placeholder location="classpath:com/stelligent/concordance/config.properties" />
+	
+	<!-- Enables the Spring MVC @Controller programming model -->
+	<annotation-driven />
+
+	<!-- Handles HTTP GET requests for /resources/** by efficiently serving up static resources in the ${webappRoot}/resources directory -->
+	<resources mapping="/resources/**" location="/resources/" />
+
+	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
+	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<beans:property name="prefix" value="/WEB-INF/views/" />
+		<beans:property name="suffix" value=".jsp" />
+	</beans:bean>
+	
+	<context:component-scan base-package="com.stelligent.concordance" />
+	
+	<beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver" />
+	
+	<!--  Embedded ActiveMQ Broker -->
+    <amq:broker id="broker" useJmx="false" persistent="false">
+        <amq:transportConnectors>
+            <amq:transportConnector uri="tcp://localhost:0" />
+        </amq:transportConnectors>
+    </amq:broker>
+
+    <!--  ActiveMQ Destination  -->
+    <amq:queue id="destination" physicalName="com.stelligent.concordance" />
+
+    <!-- JMS ConnectionFactory to use, configuring the embedded broker using XML -->
+    <amq:connectionFactory id="jmsFactory" brokerURL="vm://localhost" />
+
+    <!-- JMS Producer Configuration -->
+    <beans:bean id="jmsProducerConnectionFactory" 
+          class="org.springframework.jms.connection.SingleConnectionFactory"
+          depends-on="broker"
+          p:targetConnectionFactory-ref="jmsFactory" />
+
+    <beans:bean id="jmsProducerTemplate" class="org.springframework.jms.core.JmsTemplate"
+          p:connectionFactory-ref="jmsProducerConnectionFactory"
+          p:defaultDestination-ref="destination" />
+
+    <!-- JMS Consumer Configuration -->
+    <beans:bean id="jmsConsumerConnectionFactory" 
+          class="org.springframework.jms.connection.SingleConnectionFactory"
+          depends-on="broker"
+          p:targetConnectionFactory-ref="jmsFactory" />
+        
+    <jms:listener-container container-type="default" 
+                            connection-factory="jmsConsumerConnectionFactory"
+                            acknowledge="auto">
+        <jms:listener destination="com.stelligent.concordance" ref="consumeFile" />
+    </jms:listener-container>
+	
+</beans:beans>
