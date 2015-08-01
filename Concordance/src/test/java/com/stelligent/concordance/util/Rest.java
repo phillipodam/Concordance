@@ -13,7 +13,7 @@ public class Rest {
 	 */
 	public static void sleep(long millis) {
 		long now = System.currentTimeMillis();
-		long riseAt = now + 1000;
+		long riseAt = now + millis;
 		do {
 			try {
 				now = System.currentTimeMillis();
