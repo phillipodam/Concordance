@@ -1,4 +1,4 @@
-package com.stelligent.concordance.util;
+package com.stelligent.concordance.test.util;
 
 /**
  * @author phillipodam

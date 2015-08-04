@@ -1,4 +1,4 @@
-package com.stelligent.concordance.integration;
+package com.stelligent.concordance.test.integration;
 
 import java.io.File;
 import java.io.InputStream;
@@ -18,7 +18,7 @@ import org.springframework.util.Assert;
 import com.stelligent.concordance.controller.BaseController;
 import com.stelligent.concordance.controller.FileUploadController;
 import com.stelligent.concordance.solution.Concordance;
-import com.stelligent.concordance.util.Rest;
+import com.stelligent.concordance.test.util.Rest;
 
 /*
  * Ideally integration tests would include use of an embedded application server to verify

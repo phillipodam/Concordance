@@ -1,4 +1,4 @@
-package com.stelligent.concordance.integration;
+package com.stelligent.concordance.test.integration;
 
 import java.io.File;
 import java.io.IOException;
@@ -16,7 +16,7 @@ import org.springframework.util.Assert;
 
 import com.stelligent.concordance.jms.SubmitFile;
 import com.stelligent.concordance.solution.ConcordanceCache;
-import com.stelligent.concordance.util.Rest;
+import com.stelligent.concordance.test.util.Rest;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration

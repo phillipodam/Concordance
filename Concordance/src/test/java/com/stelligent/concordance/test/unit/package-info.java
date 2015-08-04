@@ -3,4 +3,4 @@
  *
  * Concordance unit test cases
  */
-package com.stelligent.concordance.unit;
+package com.stelligent.concordance.test.unit;

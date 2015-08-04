@@ -1,4 +1,4 @@
-package com.stelligent.concordance.unit;
+package com.stelligent.concordance.test.unit;
 
 import java.io.File;
 import java.io.IOException;
