@@ -35,7 +35,7 @@ public class ConcordanceTest {
 	private String contentRequirements;
 	
 	/**
-	 * Attempt to generating concordance of null
+	 * Attempt generating concordance of null
 	 * 
 	 * Expected result: Error message returned
 	 */
